@@ -24,7 +24,7 @@ jump_check() {
     method_name=$3
     expected_file=$4
 
-    /usr/bin/python $JCALL/py/invoke.py "$JCALLTEST$source_path" $lineno "$method_name" "$JCALLTEST/build" "/tmp/jcall" > ${expected_file}.out
+    /usr/bin/python $JCALL/py/invoke.py "$JCALLTEST$source_path" $lineno "$method_name" "$JCALLTEST/build" "/tmp/jcall" | sort > ${expected_file}.out
 
     diff -u ${expected_file}.out ${expected_file} > ${expected_file}.diff
     if [ "$?" -ne "0" ]; then
@@ -38,7 +38,7 @@ call_check() {
     signature=$1
     expected_file=$2
 
-    /usr/bin/python $JCALL/py/jcall.py "$JCALLTEST/build" "$signature" '/tmp/jcall' > ${expected_file}.out
+    /usr/bin/python $JCALL/py/jcall.py "$JCALLTEST/build" "$signature" '/tmp/jcall' | sort > ${expected_file}.out
 
     diff -u ${expected_file}.out ${expected_file} > ${expected_file}.diff
     if [ "$?" -ne "0" ]; then
@@ -47,6 +47,13 @@ call_check() {
         rm ${expected_file}.diff
     fi
 }
+
+if [ "$1" == "-c" ]; then
+    ant clean
+    rm test_call/*.out test_call/*.diff
+    rm test_jump/*.out test_jump/*.diff
+    exit
+fi
 
 if [ "$1" == "-r" ]; then
     printf "\nRecompiling\n"
@@ -73,8 +80,9 @@ jump_check "/src/chad/Test.java" 42 "doHi" test_jump/chad.Test.doHi
 jump_check "/src/chad/Test.java" 13 "hi" test_jump/chad.Test.hi
 
 printf "\nChecking Calls\n"
-call_check "chad.test.doI3:(Lchad/I3;)V" test_call/chad.Test.doI3
-call_check "chad.test.doC:(Lchad/C;)V" test_call/chad.Test.doC
+call_check "chad.Test.doI3:(Lchad/I3;)V" test_call/chad.Test.doI3
+call_check "chad.Test.doC:(Lchad/C;)V" test_call/chad.Test.doC
+call_check "chad.Hi.hi:()V" test_call/chad.Hi.hi
 call_check "chad.A.m1:()V" test_call/chad.A.m1
 call_check "chad.B.m2:()V" test_call/chad.B.m2
 call_check "chad.C.m1:()V" test_call/chad.C.m1
