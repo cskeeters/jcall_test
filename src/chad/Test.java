@@ -44,5 +44,6 @@ public class Test
 
         C c = new C();
         t.doI3(c);
+        t.doC(c);
     }
 }
