@@ -1,11 +1,12 @@
 #!/bin/bash
 
 # Set where your jcall bundle is installed
-JCALL=/Users/chad/.vim/bundle/jcall.vim
+JCALL=~/.vim/bundle/jcall.vim
 
 #Where this test package is
-JCALLTEST=/Users/chad/jcall_test
-#JCALLTEST=$(basename $0)
+JCALLTEST=$(dirname $0)
+cd $JCALLTEST
+JCALLTEST=$(pwd)
 
 method_check() {
     source_path=$1
