@@ -84,6 +84,7 @@ printf "\nChecking Calls\n"
 call_check "chad.Test.doI3:(Lchad/I3;)V" test_call/chad.Test.doI3
 call_check "chad.Test.doC:(Lchad/C;)V" test_call/chad.Test.doC
 call_check "chad.Hi.hi:()V" test_call/chad.Hi.hi
+call_check "chad.Hi2.hi2:()V" test_call/chad.Hi2.hi
 call_check "chad.A.m1:()V" test_call/chad.A.m1
 call_check "chad.B.m2:()V" test_call/chad.B.m2
 call_check "chad.C.m1:()V" test_call/chad.C.m1
