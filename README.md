@@ -3,7 +3,7 @@ jcall_test
 
 Test java project for [jcall.vim](https://github.com/cskeeters/jcall.vim)
 
-Once jcall.vim has been setup, run the following commands to test.
+Once jcall.vim has been setup, run the following command to test.
 
     ./test.sh -r
 
